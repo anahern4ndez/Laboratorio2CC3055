@@ -23,11 +23,11 @@ public class Clima implements Parcelable {
 
     @Override
     public String toString() {
-        String hilo = "\""+ containerName + "\"; ";
+        String hilo = "Información de: \""+ containerName + "\"\n ";
 
         for (String el: elementosAnidados)
         {
-            hilo += el +", ";
+            hilo += "\t" +el +", \n";
         }
         return hilo;
     }

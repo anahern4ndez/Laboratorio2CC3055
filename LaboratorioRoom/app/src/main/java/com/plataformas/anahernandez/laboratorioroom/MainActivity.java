@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     String urlWeather = "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22";
     JSONObject resultWeather;
     List<Clima> listaweather = new ArrayList<>(); //lista que contiene todos los elementos del url
-    List<Clima> display = new ArrayList<>(); //lista que contiene los elementos que se mostraran en el listview
+    final List<Clima> display = new ArrayList<>(); //lista que contiene los elementos que se mostraran en el listview
     ListView listView;
 
     @Override
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RequestQueue queue  = Volley.newRequestQueue(this);
+
         JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, urlWeather, null, new Response.Listener<JSONObject>()
         {
                     @Override
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                             if (el.getNombre().contains("main"))
                             {
                                 display.add(el);
+                                loadListView();
                             }
                         }
                     }
@@ -52,28 +54,8 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(error.getMessage());
                     }
                 });
-
         queue.add(objRequest);
 
-        ArrayList<String> prueba = new ArrayList<>();
-        prueba.add("fdsjak");
-        display.add(new Clima(prueba, "hola"));
-
-        listView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<Clima> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,display);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        //Abre la activity 2, mandando como objeto el hospital
-                        Intent test = new Intent(view.getContext(), ActivityB.class);
-                        startActivity(test);
-
-                    }
-                }
-        );
     }
 
     public List<Clima> fillInfo(JSONObject response)
@@ -141,14 +123,31 @@ public class MainActivity extends AppCompatActivity {
             elementos.add(response.getString("cod"));
             dato = new Clima(elementos, "cod");
             toAdd.add(dato);
-            elementos = new ArrayList<>();
 
-
-            System.out.println(response.getJSONObject("main").getString("temp"));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return toAdd;
+    }
+    public void loadListView()
+    {
+        listView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<Clima> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,display);
+        listView.setAdapter(adapter);
+        System.out.println(display);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        //Abre la activity 2, mandando como objeto el hospital
+                        Intent test = new Intent(view.getContext(), ActivityB.class);
+                        startActivity(test);
+
+                    }
+                }
+        );
     }
 }
