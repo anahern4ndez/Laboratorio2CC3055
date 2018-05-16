@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     List<Clima> listaweather = new ArrayList<>(); //lista que contiene todos los elementos del url
     final List<Clima> display = new ArrayList<>(); //lista que contiene los elementos que se mostraran en el listview
     ListView listView;
+    BaseDatos climaDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RequestQueue queue  = Volley.newRequestQueue(this);
+        climaDatabase = BaseDatos.getDatabase(this);
 
         JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.GET, urlWeather, null, new Response.Listener<JSONObject>()
         {
@@ -47,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
                                 loadListView();
                             }
                         }
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                climaDatabase.dao().nukeTable(); //esto para que no se agregue la misma informacion al DB cada vez que corra el programa
+                                climaDatabase.dao().insertAll(listaweather);
+                            }
+                        }).start();
                     }
                 }, new Response.ErrorListener() {
                     @Override

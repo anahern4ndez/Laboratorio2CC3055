@@ -1,7 +1,13 @@
 package com.plataformas.anahernandez.laboratorioroom;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,74 +17,90 @@ import java.util.List;
  * Created by anahernandez on 5/9/18.
  */
 
-public class Clima implements Parcelable {
+@Entity (tableName = "clima")
+public class Clima {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "container_name")
+    @NonNull
     private String containerName;
-    private ArrayList<String> elementosAnidados;
 
-    public Clima(ArrayList<String> elementosAnidados, String containerName) {
+    @Ignore
+    private ArrayList<String> elementosAnidados = new ArrayList<>();
+
+    @ColumnInfo(name = "context")
+    private String context;
+
+    public Clima()
+    {
+        elementosAnidados = new ArrayList<>();
+    }
+
+    public Clima(@NonNull ArrayList<String> elementosAnidados, @NonNull String containerName) {
         this.containerName = containerName;
         this.elementosAnidados = elementosAnidados;
     }
 
     @Override
     public String toString() {
-        String hilo = "Información de: \""+ containerName + "\"\n ";
-
-        for (String el: elementosAnidados)
-        {
-            hilo += "\t" +el +", \n";
-        }
+        String hilo = "\t" + "\"" + containerName + "\":" + "\n" + context;
         return hilo;
     }
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public ArrayList<String> getAnidados()
     {
         return elementosAnidados;
+    }
+
+    public void setAnidados(ArrayList<String> lista)
+    {
+        this.elementosAnidados = lista;
+        this.context = "";
+        for (String el: elementosAnidados)
+        {
+            context += el +", \n";
+        }
     }
 
     public String getNombre()
     {
         return containerName;
     }
-
-    public boolean containsElemento(String texto)
+    public void setNombre(String nombre)
     {
-        boolean contiene = false;
-        for (String el : elementosAnidados)
-        {
-            if (el.contains(texto))
-            {
-                contiene = true;
-            }
-        }
-        return contiene;
+        this.containerName = nombre;
     }
 
-    protected Clima(Parcel in) {
-        elementosAnidados = in.readArrayList(String.class.getClassLoader());
-        containerName = in.readString();
+    public int getId() {
+        return id;
     }
 
-    public static final Creator<Clima> CREATOR = new Creator<Clima>() {
-        @Override
-        public Clima createFromParcel(Parcel in) {
-            return new Clima(in);
-        }
-
-        @Override
-        public Clima[] newArray(int size) {
-            return new Clima[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getContainerName() {
+        return containerName;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(elementosAnidados);
-        dest.writeString(containerName);
+    public ArrayList<String> getElementosAnidados() {
+        return elementosAnidados;
+    }
+
+    public void setContainerName(String containerName) {
+        this.containerName = containerName;
+    }
+
+    public void setElementosAnidados(ArrayList<String> elementosAnidados) {
+        this.elementosAnidados = elementosAnidados;
     }
 }

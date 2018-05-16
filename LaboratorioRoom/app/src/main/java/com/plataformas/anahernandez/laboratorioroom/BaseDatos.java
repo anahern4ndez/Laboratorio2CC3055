@@ -18,7 +18,12 @@ public abstract class BaseDatos extends RoomDatabase {
 
     public static BaseDatos getDatabase(Context context) {
         if (instance == null){
-            instance = Room.databaseBuilder(context, BaseDatos.class,"clima").allowMainThreadQueries().build();
+            instance = Room.databaseBuilder(context, BaseDatos.class,"clima")
+                    // allow queries on the main thread.
+                    .fallbackToDestructiveMigration()
+                    //.allowMainThreadQueries()
+                    .build();
+
         }
         return instance;
     }

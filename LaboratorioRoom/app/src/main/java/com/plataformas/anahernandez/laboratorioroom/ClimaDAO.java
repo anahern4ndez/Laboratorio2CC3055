@@ -12,12 +12,14 @@ import java.util.List;
  * Reference: http://www.vogella.com/tutorials/AndroidSQLite/article.html
  */
 @Dao
-public interface ClimaDao {
+public interface ClimaDAO {
+    @Query("SELECT * FROM clima")
+    List<Clima> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    void insertWeather(Clima descripcion);
+    @Insert
+    void insertAll(List<Clima> tabla);
 
-    @Query("SELECT * FROM weather WHERE id=:id")
-        List<Clima> getDescriptionById(int id);
+    @Query("DELETE FROM clima")
+    void nukeTable();
 
 }
