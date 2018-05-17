@@ -40,15 +40,30 @@ public class MainActivity extends AppCompatActivity {
         {
                     @Override
                     public void onResponse(JSONObject response) {
-                        listaweather = fillInfo(response);
-                        for (Clima el : listaweather)
-                        {
-                            if (el.getNombre().contains("main"))
-                            {
-                                display.add(el);
-                                loadListView();
+                        // List view
+                        listView = (ListView) findViewById(R.id.listView);
+
+                        // Nuevo intent, el de antes no funcionaba :(
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(MainActivity.this, ActivityB.class);
+                                startActivity(intent);
                             }
+                        });
+
+                        // Informacion a mostrar
+                        List<String> data = new ArrayList<>();
+                        // Adapter de la lista
+                        final ArrayAdapter<String> adapt = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, data);
+                        listView.setAdapter(adapt);
+                        // Load data
+                        listaweather = fillInfo(response);
+                        for(Clima cl: listaweather){
+                            data.add(cl.toString());
                         }
+                        // Notify data changed
+                        adapt.notifyDataSetChanged();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -139,24 +154,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return toAdd;
-    }
-    public void loadListView()
-    {
-        listView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<Clima> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,display);
-        listView.setAdapter(adapter);
-        System.out.println(display);
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        //Abre la activity 2, mandando como objeto el hospital
-                        Intent test = new Intent(view.getContext(), ActivityB.class);
-                        startActivity(test);
-
-                    }
-                }
-        );
     }
 }
