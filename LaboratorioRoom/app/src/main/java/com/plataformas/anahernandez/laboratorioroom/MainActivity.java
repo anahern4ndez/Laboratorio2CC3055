@@ -23,6 +23,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/** Ana Lucia Hernandez 17138
+ * Esteban Cabrera 17781
+ * Fernando Hengstenberg 17699
+ * Raul Monzon 17014
+ *Kevin Macario 17369
+ * 08/05/2017
+ * Laboratorio 2: Plataformas Moviles y Juegos
+ *
+ */
+
+
 public class MainActivity extends AppCompatActivity {
     String urlWeather = "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22";
     JSONObject resultWeather;
@@ -73,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         queue.add(objRequest);
 
     }
+    /**
+     * Metodo para cargar la listview con la informacion previamente obtenida de la pagina web
+     */
     public void loadListView()
     {
         TextView tv = findViewById(R.id.tituloLista);
@@ -93,7 +108,11 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
+    /**
+     *  Metodo para jalar toda la informacion de la pagina de internet y guardarla en una lista
+     * @param response: conexion a la informacion de internet
+     * @return lista que contiene todos los elementos obtenidos de la pagina web
+     */
     public List<Clima> fillInfo(JSONObject response)
     {
 

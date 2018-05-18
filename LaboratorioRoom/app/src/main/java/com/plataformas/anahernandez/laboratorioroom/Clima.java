@@ -12,9 +12,16 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que describe los elementos que ira guardando Room
- * Created by anahernandez on 5/9/18.
+
+/** Ana Lucia Hernandez 17138
+ * Esteban Cabrera 17781
+ * Fernando Hengstenberg 17699
+ * Raul Monzon 17014
+ * Kevin Macario 17369
+ * 08/05/2017
+ * Laboratorio 2: Plataformas Moviles y Juegos
+ * Clase que modela los objetos que guardara Room
+ *
  */
 
 @Entity (tableName = "clima")

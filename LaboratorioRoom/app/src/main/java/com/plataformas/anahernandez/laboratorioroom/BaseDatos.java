@@ -5,8 +5,14 @@ import android.content.Context;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 
-/**
- * Author Esteban Cabrera 17781
+/** Ana Lucia Hernandez 17138
+ * Esteban Cabrera 17781
+ * Fernando Hengstenberg 17699
+ * Raul Monzon 17014
+ *Kevin Macario 17369
+ * 08/05/2017
+ * Laboratorio 2: Plataformas Moviles y Juegos
+ *
  */
 
 @Database(entities = {Clima.class}, version = 16)

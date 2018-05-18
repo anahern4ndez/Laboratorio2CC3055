@@ -7,9 +7,15 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-/**
- * Author Raúl Monzon 17014
+/** Ana Lucia Hernandez 17138
+ * Esteban Cabrera 17781
+ * Fernando Hengstenberg 17699
+ * Raul Monzon 17014
+ *Kevin Macario 17369
+ * 08/05/2017
+ * Laboratorio 2: Plataformas Moviles y Juegos
  * Reference: http://www.vogella.com/tutorials/AndroidSQLite/article.html
+ *
  */
 @Dao
 public interface ClimaDAO {

@@ -9,6 +9,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Ana Lucia Hernandez 17138
+ * Esteban Cabrera 17781
+ * Fernando Hengstenberg 17699
+ * Raul Monzon 17014
+ * Kevin Macario 17369
+ * 08/05/2017
+ * Laboratorio 2: Plataformas Moviles y Juegos
+ *
+ */
+
 public class ActivityB extends AppCompatActivity {
 
     BaseDatos climaDatabase;
@@ -31,6 +42,9 @@ public class ActivityB extends AppCompatActivity {
 
 
     }
+    /**
+     * Metodo para iniciar la listView con la informacion guardada en la base de datos
+     */
     public void startView()
     {
         TextView tv = findViewById(R.id.tituloDB);
